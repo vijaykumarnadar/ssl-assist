@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Table</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Table Styles */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        table tr:hover {
+        background-color: #80b45b; /* Light gray background on hover */
+    }
+
+    /* Click effect for table rows */
+    table tr.clicked {
+        background-color: #e0e0e0; /* Darker gray background for clicked row */
+    }
+
+        /* Dialog Box Styles */
+        #dialog {
+            position: relative;
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            max-height: 60%;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        #copyButton {
+        position: absolute; /* Absolute positioning */
+        top: 10px; /* Distance from the top of the dialog */
+        right: 10px; /* Distance from the right of the dialog */
+        background: none; /* Transparent background */
+        border: none; /* No border */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        color: black;
+    }
+
+    #copyButton:active {
+        transform: scale(0.95); /* Slightly scale down the button */
+        background-color: #e0e0e0; /* Optional: change background color */
+    }
+
+    #copyButton svg {
+        fill: black; /* Ensures the SVG is visible, change color as needed */
+    }
+
+    /* You might need to adjust this depending on the size of your dialog */
+    .icon-sm {
+        height: 24px;
+        width: 24px;
+    }
+        button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .dialog-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .dialog-table th, .dialog-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Finding</th>
+                <th>Severity</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data.itertuples() %}
+            <tr style="cursor: pointer;" data-id="{{ row.id }}" data-finding="{{ row.finding }}" onclick="sendPostRequest(this)">
+                <td>{{ row.id }}</td>
+                <td>{{ row.finding }}</td>
+                <td>{{ row.severity }}</td>
+                <td>{{ row.count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div id="overlay" onclick="closeDialog()"></div>
+
+    <div id="dialog">
+        <button id="copyButton" onclick="copyToClipboard()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 4C10.8954 4 10 4.89543 10 6H14C14 4.89543 13.1046 4 12 4ZM8.53513 4C9.22675 2.8044 10.5194 2 12 2C13.4806 2 14.7733 2.8044 15.4649 4H17C18.6569 4 20 5.34315 20 7V19C20 20.6569 18.6569 22 17 22H7C5.34315 22 4 20.6569 4 19V7C4 5.34315 5.34315 4 7 4H8.53513ZM8 6H7C6.44772 6 6 6.44772 6 7V19C6 19.5523 6.44772 20 7 20H17C17.5523 20 18 19.5523 18 19V7C18 6.44772 17.5523 6 17 6H16C16 7.10457 15.1046 8 14 8H10C8.89543 8 8 7.10457 8 6Z" fill="currentColor"></path>
+            </svg>
+            Copy
+        </button>
+        <div id="dialog-response"></div>
+        <button onclick="closeDialog()">Close</button>
+    </div>
+    
+
+    <script>
+        function sendPostRequest(element) {
+    var id = element.getAttribute('data-id');
+    var finding = element.getAttribute('data-finding');
+
+    $.post('/process_request', { id: id, finding: finding }, function(data) {
+        // Check if data.response is an array
+        if (Array.isArray(data.response)) {
+            var dialogTable = '<table class="dialog-table"><tr><th>Data</th></tr>';
+            data.response.forEach(function(item) {
+                var cleanedItem = item.replace(/\"/g, ''); // Remove double quotes
+                dialogTable += '<tr><td>' + cleanedItem + '</td></tr>';
+            });
+            dialogTable += '</table>';
+            $('#dialog-response').html(dialogTable);
+        } else {
+            // Fallback for other types of responses
+            $('#dialog-response').html('<pre>' + JSON.stringify(data.response, null, 2) + '</pre>');
+        }
+        $('#overlay').show();
+        $('#dialog').show();
+    }).fail(function(error) {
+        $('#dialog-response').html('Error occurred: ' + error.statusText);
+        $('#overlay').show();
+        $('#dialog').show();
+    });
+}
+
+
+
+        function closeDialog() {
+            $('#dialog').hide();
+            $('#overlay').hide();
+        }
+
+        function copyToClipboard() {
+    var textToCopy = '';
+    $('#dialog-response .dialog-table tr').each(function(index, tr) {
+        if (index > 0) { // Skip the header row
+            var cellText = $(tr).find('td').text();
+            textToCopy += (index > 1 ? '\n' : '') + cellText;
+        }
+    });
+    navigator.clipboard.writeText(textToCopy);
+}
+
+    </script>
+</body>
+</html>
