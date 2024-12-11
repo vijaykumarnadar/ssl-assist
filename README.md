@@ -1,32 +1,20 @@
-# TestSSL Assist
+# SSL Assist
 
 ## Description
 TestSSL Assist is a tool designed to enhance the efficiency of SSL/TLS testing, particularly using the `testssl` utility. It provides a comprehensive approach to scanning and analyzing the output for efficient reporting.
 
-The testssl-assist tool is exclusively designed for Linux environments, as the `testssl` utility is not available for Windows.
+The ssl-assist tool is exclusively designed for Linux environments, as the `testssl` utility is not available for Windows.
 
 ## Installation
 
-
-Disable the SSL Verification by running:
-
-```bash
- git config --global http.sslVerify false
-```
 
 
 Clone the repository using:
 
 ```bash
-git clone https://gitlab.dfns.me/vijay.kumar/testssl-assist.git
-cd testssl-assist
+git clone https://github.com/vijaykumarnadar/ssl-assist.git
+cd ssl-assist
 python3 setup.py
-```
-
-Remember to re-enable it later by running:
-
-```bash
-git config --global http.sslVerify true
 ```
 
 
@@ -35,7 +23,7 @@ git config --global http.sslVerify true
 ### Scan Function
 
 #### Overview
-The scan function of TestSSL Assist is a feature that allows users to perform concurrent scans on multiple hosts. It efficiently handles a variety of data types including IP addresses, subnets, hostnames, and URLs. Now supporting import from Nmap (gnmap) and Nessus files to extract IPs for processing.
+The scan function of SSL Assist is a feature that allows users to perform concurrent scans on multiple hosts. It efficiently handles a variety of data types including IP addresses, subnets, hostnames, and URLs. Now supporting import from Nmap (gnmap) and Nessus files to extract IPs for processing.
 
 #### Key Features
 
@@ -115,49 +103,49 @@ testssl-assist parse
 #### Multithreaded scanning also demonstration the processing of IP, skipping which has already finished and deleting the premature output file (Scan function)
 
 <p align="center">
-  <img src="https://gitlab.dfns.me/vijay.kumar/testssl-assist/-/raw/main/examples/scan.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/scan.png">
 </a>
 </p>
 
 #### List of findings (After running parse function)
 
 <p align="center">
-  <img src="https://gitlab.dfns.me/vijay.kumar/testssl-assist/-/raw/main/examples/findings.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/findings.png">
 </a>
 </p>
 
 #### List of IPs in each finding's file
 
 <p align="center">
-  <img src="https://gitlab.dfns.me/vijay.kumar/testssl-assist/-/raw/main/examples/findings-ips-list.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/findings-ips-list.png">
 </a>
 </p>
 
 #### List of Vulnerable ciphers
 
 <p align="center">
-  <img src="https://gitlab.dfns.me/vijay.kumar/testssl-assist/-/raw/main/examples/ciphers.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/ciphers.png">
 </a>
 </p>
 
 #### List of vulnerable ciphers in each IP.
 
 <p align="center">
-  <img src="https://gitlab.dfns.me/vijay.kumar/testssl-assist/-/raw/main/examples/vulnerable-ciphers.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/vulnerable-ciphers.png">
 </a>
 </p>
 
 #### List of all unique ID and their unique values (Should be viewed to ensure no findings are missed - each row is clickable and the ips having the id-value pair are listed)
 
 <p align="center">
-  <img src="https://gitlab.dfns.me/vijay.kumar/testssl-assist/-/raw/main/examples/parse.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/parse.png">
 </a>
 </p>
 
 #### List of ips in each id-value pair.
 
 <p align="center">
-  <img src="https://gitlab.dfns.me/vijay.kumar/testssl-assist/-/raw/main/examples/parse-ip.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/parse-ip.png">
 </a>
 </p>
 
