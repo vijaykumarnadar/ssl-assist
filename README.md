@@ -103,49 +103,49 @@ testssl-assist parse
 #### Multithreaded scanning also demonstration the processing of IP, skipping which has already finished and deleting the premature output file (Scan function)
 
 <p align="center">
-  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/scan.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/raw/main/examples/scan.png">
 </a>
 </p>
 
 #### List of findings (After running parse function)
 
 <p align="center">
-  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/findings.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/raw/main/examples/findings.png">
 </a>
 </p>
 
 #### List of IPs in each finding's file
 
 <p align="center">
-  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/findings-ips-list.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/raw/main/examples/findings-ips-list.png">
 </a>
 </p>
 
 #### List of Vulnerable ciphers
 
 <p align="center">
-  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/ciphers.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/raw/main/examples/ciphers.png">
 </a>
 </p>
 
 #### List of vulnerable ciphers in each IP.
 
 <p align="center">
-  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/vulnerable-ciphers.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/raw/main/examples/vulnerable-ciphers.png">
 </a>
 </p>
 
 #### List of all unique ID and their unique values (Should be viewed to ensure no findings are missed - each row is clickable and the ips having the id-value pair are listed)
 
 <p align="center">
-  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/parse.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/raw/main/examples/parse.png">
 </a>
 </p>
 
 #### List of ips in each id-value pair.
 
 <p align="center">
-  <img src="https://github.com/vijaykumarnadar/ssl-assist/-/raw/main/examples/parse-ip.png">
+  <img src="https://github.com/vijaykumarnadar/ssl-assist/raw/main/examples/parse-ip.png">
 </a>
 </p>
 
